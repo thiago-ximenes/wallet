@@ -12,25 +12,61 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isDisabled: false,
+      isDisabled: true,
+      isEmailValid: false,
+      isPasswordValid: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isEmailValid, isPasswordValid } = this.state;
+    if (prevState.isEmailValid !== isEmailValid) {
+      this.checkDisabled();
+    }
+    if (prevState.isPasswordValid !== isPasswordValid) {
+      this.checkDisabled();
+    }
   }
 
   validatorEmail = (e) => {
     const { value } = e.target;
     if (validator.isEmail(value)) {
-      this.setState({ isDisabled: true });
+      this.setState({ isEmailValid: true });
+    } else {
+      this.setState({ isEmailValid: false });
+    }
+  };
 
+  checkPassword = (event) => {
+    const SIX = 6;
+    if (event.length >= SIX) {
+      this.setState({ isPasswordValid: true });
+    } else {
+      this.setState({ isPasswordValid: false });
+    }
+  };
+
+  checkDisabled = () => {
+    const { isEmailValid, isPasswordValid } = this.state;
+    if (isEmailValid && isPasswordValid) {
+      this.setState({ isDisabled: false });
+    } else {
+      this.setState({ isDisabled: true });
+    }
+  };
 
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
+    if (event.target.name === 'password') {
+      this.checkPassword(event.target.value);
+    }
   };
 
   render() {
     const { email, password, isDisabled } = this.state;
-    const { handleChange } = this;
+    const { handleChange, validatorEmail } = this;
     return (
       <Box mt={ 5 }>
         <Grid
@@ -56,6 +92,7 @@ class Login extends React.Component {
           </Box>
           <Grid item xs>
             <TextField
+              value={ password }
               name="password"
               type="password"
               onChange={ handleChange }
