@@ -12,7 +12,7 @@ ReactDOM.render(
     <Provider store={ store }>
       <App />
     </Provider>
-z  </BrowserRouter>,
+  </BrowserRouter>,
   document.getElementById('root'),
 );
 
