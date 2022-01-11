@@ -1,10 +1,9 @@
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import validator from 'validator';
+// import { setEmail } from '../redux/reducer';
+import setEmail from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -55,6 +54,11 @@ class Login extends React.Component {
     }
   };
 
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('/carteira');
+  };
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -66,58 +70,64 @@ class Login extends React.Component {
 
   render() {
     const { email, password, isDisabled } = this.state;
-    const { handleChange, validatorEmail } = this;
+    const { handleChange, validatorEmail, handleClick } = this;
+    const { dispatchEmail } = this.props;
     return (
-      <Box mt={ 5 }>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
+
+      <div>
+        <input
+          name="email"
+          onChange={ (e) => {
+            handleChange(e);
+            validatorEmail(e);
+          } }
+          value={ email }
+          data-testid="email-input"
+          variant="outlined"
+          label="Email"
+        />
+
+        <input
+          value={ password }
+          name="password"
+          type="password"
+          onChange={ handleChange }
+          data-testid="password-input"
+          variant="outlined"
+          label="Password"
+        />
+
+        <button
+          type="button"
+          onClick={ () => {
+            handleClick();
+            dispatchEmail(email);
+          } }
+          disabled={ isDisabled }
+          // color="primary"
+          // variant="contained"
+          // size="large"
+          // endIcon={ <ExitToAppIcon /> }
         >
-          <Box mb={ 0.9 }>
-            <Grid item xs>
-              <TextField
-                name="email"
-                onChange={ (e) => {
-                  handleChange(e);
-                  validatorEmail(e);
-                } }
-                value={ email }
-                data-testid="email-input"
-                variant="outlined"
-                label="Email"
-              />
-            </Grid>
-          </Box>
-          <Grid item xs>
-            <TextField
-              value={ password }
-              name="password"
-              type="password"
-              onChange={ handleChange }
-              data-testid="password-input"
-              variant="outlined"
-              label="Password"
-            />
-          </Grid>
-          <Grid item xs>
-            <Box mt={ 0.5 }>
-              <Button
-                disabled={ isDisabled }
-                color="primary"
-                variant="contained"
-                size="large"
-                endIcon={ <ExitToAppIcon /> }
-              >
-                Entrar
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+          Entrar
+        </button>
+      </div>
+
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchEmail: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchEmail: (state) => dispatch(setEmail(state)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Login);

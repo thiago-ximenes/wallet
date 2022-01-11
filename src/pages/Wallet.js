@@ -1,8 +1,10 @@
 import React from 'react';
+import store from '../store';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    console.log(store.getState());
+    return <div>carteira</div>;
   }
 }
 
