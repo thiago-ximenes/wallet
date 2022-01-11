@@ -1,10 +1,13 @@
 import React from 'react';
-import store from '../store';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
-    console.log(store.getState());
-    return <div>carteira</div>;
+    return (
+      <div>
+        <Header />
+      </div>
+    );
   }
 }
 

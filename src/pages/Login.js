@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import validator from 'validator';
-// import { setEmail } from '../redux/reducer';
 import setEmail from '../actions';
 
 class Login extends React.Component {
