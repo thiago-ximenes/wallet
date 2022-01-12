@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import validator from 'validator';
 import setEmail from '../actions';
 
 class Login extends React.Component {
@@ -28,7 +27,8 @@ class Login extends React.Component {
 
   validatorEmail = (e) => {
     const { value } = e.target;
-    if (validator.isEmail(value)) {
+    const isEmailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    if (isEmailValid) {
       this.setState({ isEmailValid: true });
     } else {
       this.setState({ isEmailValid: false });
