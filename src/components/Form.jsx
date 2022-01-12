@@ -53,4 +53,8 @@ class Form extends Component {
   }
 }
 
+mapDispatchToProps = (dispatch) => ({
+  addExpense: (expense) => dispatch(addExpense(expense)),
+});
+
 export default connect(null, null)(Form);
