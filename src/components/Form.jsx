@@ -75,24 +75,29 @@ class Form extends Component {
           data-testid="description-input"
           onChange={ (e) => handleChange(e) }
         />
+        <label htmlFor="currency" aria-label="Moeda">
+          <select
+            id="currency"
+            value={ currency }
+            name="currency"
+            data-testid="currency-input"
+            onChange={ (e) => handleChange(e) }
+          >
+            { Object.keys(currencyFromGlobalStore)
+              .filter((actualCurrency) => actualCurrency !== 'USDT')
+              .map((actualCurrency) => (
+                <option
+                  data-testid={ actualCurrency }
+                  key={ actualCurrency }
+                  value={ actualCurrency }
+                >
+                  { actualCurrency }
+                </option>
+              )) }
+          </select>
+        </label>
         <select
-          value={ currency }
-          name="currency"
-          data-testid="currency-input"
-          onChange={ (e) => handleChange(e) }
-        >
-          <option value="">Choose a currency</option>
-          { Object.keys(currencyFromGlobalStore).map((actualCurrency) => (
-            <option
-              key={ actualCurrency }
-              value={ actualCurrency }
-            >
-              { actualCurrency }
-            </option>
-          )) }
-          <option value="BRL">BRL</option>
-        </select>
-        <select
+          id="method"
           value={ method }
           name="method"
           data-testid="method-input"
@@ -103,20 +108,22 @@ class Form extends Component {
           <option value="Cartão de débito">Cartão de débito</option>
           <option value="Dinheiro">Dinheiro</option>
         </select>
-        <select
-          value={ tag }
-          name="tag"
-          id=""
-          data-testid="tag-input"
-          onChange={ handleChange }
-        >
-          <option value="">Choose a tag</option>
-          <option value="Alimentação">Alimentação</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Saúde">Saúde</option>
-          <option value="Transporte"> Transporte</option>
-        </select>
+        <label htmlFor="tag">
+          <select
+            value={ tag }
+            name="tag"
+            id="tag"
+            data-testid="tag-input"
+            onChange={ handleChange }
+          >
+            <option value="">Choose a tag</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Transporte"> Transporte</option>
+          </select>
+        </label>
         <button
           type="submit"
           onClick={ (e) => {
