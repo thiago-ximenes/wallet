@@ -3,20 +3,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  constructor() {
-    super();
-    this.state = {
-      expenses: 0,
-    };
+  totalExpenses = () => {
+    const { expenses } = this.props;
+    const total = expenses.reduce((acc, curr) => {
+      const { value, currency, exchangeRates } = curr;
+      const exchangeAsk = exchangeRates[currency].ask;
+      const sumValue = value * exchangeAsk;
+      return acc + sumValue;
+    }, 0);
+    return total;
   }
 
   render() {
     const { email } = this.props;
-    const { expenses } = this.state;
+    const { totalExpenses } = this;
     return (
       <div>
         <p data-testid="email-field">{ email }</p>
-        <p data-testid="total-field">{`Despesas Totais de Gasto: ${expenses}`}</p>
+        <p data-testid="total-field">{ totalExpenses() }</p>
         <div data-testid="header-currency-field">BRL</div>
       </div>
     );
@@ -25,10 +29,14 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.number.isRequired,
+  })).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

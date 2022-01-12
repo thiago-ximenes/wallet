@@ -82,8 +82,6 @@ class Login extends React.Component {
           } }
           value={ email }
           data-testid="email-input"
-          variant="outlined"
-          label="Email"
         />
 
         <input
