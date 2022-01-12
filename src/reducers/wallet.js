@@ -1,3 +1,5 @@
+const SET_CURRENCIES = 'SET_CURRENCIES';
+const SET_EXPENSES = 'SET_EXPENSES';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],

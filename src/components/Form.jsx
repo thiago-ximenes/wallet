@@ -53,4 +53,4 @@ class Form extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(null, null)(Form);
