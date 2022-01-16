@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropsTypes from 'prop-types';
 
 class Table extends Component {
   render() {
     const { expenses } = this.props;
+    console.log(expenses);
     return (
       <table>
         <tr>
@@ -31,16 +33,23 @@ class Table extends Component {
           <th>
             Moeda de conversão
           </th>
+          <th>
+            Editar/Excluir
+          </th>
         </tr>
-        { expenses.lenght > 0 && expenses.map((expense) => (
+        {/* { expenses.length > 0 && expenses.map((expense) => (
           <tr key={ expense.id }>
-            
+            <td>{ expense.description }</td>
           </tr>
-        )) }
+        )) } */}
       </table>
     );
   }
 }
+
+Table.propTypes = {
+  expenses: PropsTypes.arrayOf(PropsTypes.object).isRequired,
+};
 
 function mapStateToProps(state) {
   return {
