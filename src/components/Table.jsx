@@ -37,11 +37,25 @@ class Table extends Component {
             Editar/Excluir
           </th>
         </tr>
-        {/* { expenses.length > 0 && expenses.map((expense) => (
+        { expenses.length > 0 && expenses.map((expense) => (
           <tr key={ expense.id }>
             <td>{ expense.description }</td>
+            <td>{ expense.tag }</td>
+            <td>{ expense.method }</td>
+            <td>{ expense.value }</td>
+            <td>
+              { expense.exchangeRates[expense.currency]
+                .name.replace('/Real Brasileiro', '')}
+            </td>
+            <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
+            <td>
+              {(Number(expense
+                .exchangeRates[expense.currency]
+                .ask) * Number(expense.value)).toFixed(2)}
+            </td>
+            <td>Real</td>
           </tr>
-        )) } */}
+        )) }
       </table>
     );
   }
