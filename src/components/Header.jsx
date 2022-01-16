@@ -5,13 +5,16 @@ import { connect } from 'react-redux';
 class Header extends Component {
   totalExpenses = () => {
     const { expenses } = this.props;
-    const total = expenses.reduce((acc, curr) => {
-      const { value, currency, exchangeRates } = curr;
-      const exchangeAsk = exchangeRates[currency].ask;
-      const sumValue = value * exchangeAsk;
-      return acc + sumValue;
-    }, 0);
-    return total;
+    if (expenses.length > 0) {
+      const total = expenses.reduce((acc, curr) => {
+        const { value, currency, exchangeRates } = curr;
+        const exchangeAsk = exchangeRates[currency].ask;
+        const sumValue = value * exchangeAsk;
+        return acc + sumValue;
+      }, 0);
+      return total;
+    }
+    return 0;
   }
 
   render() {

@@ -1,11 +1,21 @@
+import PropsTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropsTypes from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class Table extends Component {
+  deleteExpenseFromStore = (event, expense) => {
+    // delete row from table
+    const { expenses, deleteRow } = this.props;
+    const newExpenses = expenses.filter((item) => item.id !== expense.id);
+    console.log(newExpenses);
+    deleteRow(newExpenses);
+    event.target.parentNode.remove();
+  };
+
   render() {
     const { expenses } = this.props;
-    console.log(expenses);
+    const { deleteExpenseFromStore } = this;
     return (
       <table>
         <tr>
@@ -54,6 +64,15 @@ class Table extends Component {
                 .ask) * Number(expense.value)).toFixed(2)}
             </td>
             <td>Real</td>
+            <td>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ (event) => deleteExpenseFromStore(event, expense) }
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         )) }
       </table>
@@ -63,6 +82,7 @@ class Table extends Component {
 
 Table.propTypes = {
   expenses: PropsTypes.arrayOf(PropsTypes.object).isRequired,
+  deleteRow: PropsTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -71,4 +91,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Table);
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteRow: (expense) => dispatch(deleteExpense(expense)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

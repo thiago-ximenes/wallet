@@ -1,5 +1,5 @@
 import { SET_EMAIL } from '../reducers/user';
-import { SET_EXPENSES, SET_CURRENCIES } from '../reducers/wallet';
+import { SET_EXPENSES, SET_CURRENCIES, DELETE_EXPENSE } from '../reducers/wallet';
 
 export function setEmail(state) {
   return {
@@ -18,6 +18,13 @@ export function SetExpenses(state) {
 function setCurrency(state) {
   return {
     type: SET_CURRENCIES,
+    payload: state,
+  };
+}
+
+export function deleteExpense(state) {
+  return {
+    type: DELETE_EXPENSE,
     payload: state,
   };
 }

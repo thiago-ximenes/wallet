@@ -220,7 +220,7 @@ describe('5 - Implemente a lógica para preencher as opções do campo "Moedas",
 describe('6 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
-  test.only('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
+  test('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
 
     expect(screen.getByRole('columnheader', { name: 'Descrição' })).toBeInTheDocument();
@@ -236,7 +236,7 @@ describe('6 - Desenvolva uma tabela com os gastos contendo as seguintes caracter
 
 describe('7 - Implemente a lógica para que a tabela seja alimentada pelo estado da aplicação', () => {
   const initial = initialStateWithExpenses;
-  test.only('A tabela deve ser alimentada pelo estado da aplicação, que estará disponível na chave expenses que vem do reducer wallet.', () => {
+  test('A tabela deve ser alimentada pelo estado da aplicação, que estará disponível na chave expenses que vem do reducer wallet.', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     expect(screen.getAllByRole('cell', { name: 'Dez dólares' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Lazer' })[0]).toBeInTheDocument();

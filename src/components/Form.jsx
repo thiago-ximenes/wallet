@@ -32,7 +32,7 @@ class Form extends Component {
     this.setState({
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       method: '',
       tag: '',
     });
