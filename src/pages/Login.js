@@ -53,7 +53,8 @@ class Login extends React.Component {
     }
   };
 
-  handleClick = () => {
+  handleClick = (event) => {
+    event.preventDefault();
     const { history } = this.props;
     history.push('/carteira');
   };
@@ -73,41 +74,70 @@ class Login extends React.Component {
     const { dispatchEmail } = this.props;
     return (
 
-      <div>
-        <input
-          name="email"
-          onChange={ (e) => {
-            handleChange(e);
-            validatorEmail(e);
-          } }
-          value={ email }
-          data-testid="email-input"
-        />
-
-        <input
-          value={ password }
-          name="password"
-          type="password"
-          onChange={ handleChange }
-          data-testid="password-input"
-          variant="outlined"
-          label="Password"
-        />
-
-        <button
-          type="button"
-          onClick={ () => {
-            handleClick();
-            dispatchEmail(email);
-          } }
-          disabled={ isDisabled }
-          // color="primary"
-          // variant="contained"
-          // size="large"
-          // endIcon={ <ExitToAppIcon /> }
+      <div
+        className="h-screen w-screen flex bg-gray-200"
+      >
+        <form
+          className="max-w-lg w-full bg-green-300 m-auto rounded
+          p-8 h-auto max-h-full shadow-lg"
         >
-          Entrar
-        </button>
+          <header>
+            <h1 className="text-center text-2xl font-bold mb-5">
+              Login
+            </h1>
+          </header>
+          <div>
+            <h2
+              className="block mb-2 text-green-700 font-bold"
+            >
+              Email
+            </h2>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-1 mb-6 text-green-700
+              border-b-2 border-green-700 shadow-lg"
+              name="email"
+              onChange={ (e) => {
+                handleChange(e);
+                validatorEmail(e);
+              } }
+              value={ email }
+              data-testid="email-input"
+            />
+          </div>
+          <h2
+            className="block mb-2 text-green-700 font-bold
+            "
+          >
+            Senha
+          </h2>
+          <input
+            className="w-full p-1 mb-6 text-green-700 border-b-2
+            border-green-700 shadow-lg"
+            value={ password }
+            name="password"
+            type="password"
+            onChange={ handleChange }
+            data-testid="password-input"
+            variant="outlined"
+            label="Password"
+          />
+          <button
+            className="w-full
+            bg-green-900 text-white hover:bg-green-600
+            font-bold py-2 px-4 rounded-lg cursor-pointer mb-8 shadow-lg
+            disabled:opacity-25"
+            type="submit"
+            onClick={ (event) => {
+              handleClick(event);
+              dispatchEmail(email);
+            } }
+            disabled={ isDisabled }
+          >
+            Entrar
+          </button>
+        </form>
       </div>
 
     );
