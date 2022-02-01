@@ -74,7 +74,7 @@ class Table extends Component {
       <div>
         <table
           className="table-fixed bg-white shadow-md rounded-lg
-          w-full max-w-full mx-auto mt-4 "
+          mx-auto mt-4 overflow-hidden"
         >
           <thead
             className=""
