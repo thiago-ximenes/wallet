@@ -31,5 +31,6 @@ yarn start
 ```
 
 ## How to use
-1. Add a value
-2. Add a description of this entrance
+1. Login with an email and type anything more then 6 characters
+2. Add a value
+3. Add a description of this entrance
