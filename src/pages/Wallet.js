@@ -8,7 +8,7 @@ class Wallet extends React.Component {
     return (
       <div className="bg-gray-200 h-screen grid place-items-center">
         <div
-          className="container mx-auto bg-amber-200
+          className="mx-auto bg-amber-200
           p-8 shadow-lg rounded"
         >
           <Header />

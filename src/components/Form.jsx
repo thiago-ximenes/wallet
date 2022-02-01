@@ -83,7 +83,7 @@ class Form extends Component {
           <Input
             name="value"
             value={ value }
-            type="text"
+            type="number"
             onChange={ (e) => handleChange(e) }
             placeholder="Valor"
           />

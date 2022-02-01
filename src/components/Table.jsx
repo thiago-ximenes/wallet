@@ -36,14 +36,14 @@ class Table extends Component {
     });
   };
 
-  editExpenseFromStore = (expense) => {
+  editExpenseFromStore = (expense, index) => {
     const { value, description, currency, method } = this.state;
     const { expenses, updateRow } = this.props;
     expense.value = value;
     expense.description = description;
     expense.currency = currency;
     expense.method = method;
-    expenses.splice(expense.id, 1, expense);
+    expenses.splice(index, 1, expense);
     updateRow(expenses);
     this.setState({ editId: null });
     this.clearInputs();
@@ -65,6 +65,7 @@ class Table extends Component {
   render() {
     const { editId, value, description, currency, method, tag } = this.state;
     const { expenses } = this.props;
+    console.log(expenses);
     const { deleteExpenseFromStore, handleChange,
       currencyFromGlobalStoreTreatment } = this;
     const tableTitle = ['Descrição', 'Tag', 'Método de pagamento',
@@ -73,6 +74,7 @@ class Table extends Component {
     return (
       <div>
         <table
+          border={ 1 }
           className="table-fixed bg-white shadow-md rounded-lg
           mx-auto mt-4 overflow-hidden"
         >
@@ -91,7 +93,7 @@ class Table extends Component {
               ))
             }
           </thead>
-          { expenses.length > 0 && expenses.map((expense) => (
+          { expenses.length > 0 && expenses.map((expense, index) => (
             <tbody
               className="bg-white divide-y divide-gray-200
               font-mono text-sm text-gray-700 p-2 border-b border-gray-200
@@ -99,64 +101,69 @@ class Table extends Component {
               key={ expense.id }
             >
               {expense.id === editId ? (
-                <div
-                  className="flex mt-2"
+                <td
+                  colSpan={ 9 }
                 >
-                  <Input
-                    name="description"
-                    value={ description }
-                    onChange={ (e) => handleChange(e) }
-                    placeholder="Descrição"
-                  />
-                  <Select
-                    id="method"
-                    value={ method }
-                    name="method"
-                    onChange={ handleChange }
-                    options={ paymentMethods }
-                    ariaLabel="Método de pagamento"
-                  />
-                  <Input
-                    name="value"
-                    value={ value }
-                    type="text"
-                    onChange={ (e) => handleChange(e) }
-                    placeholder="Valor"
-                  />
-                  <Select
-                    id="tag"
-                    value={ tag }
-                    name="tag"
-                    onChange={ handleChange }
-                    options={ tags }
-                    ariaLabel="Tag"
-                  />
-                  <Select
-                    id="currency"
-                    value={ currency }
-                    name="currency"
-                    onChange={ handleChange }
-                    options={ currencyFromGlobalStoreTreatment() }
-                    ariaLabel="Moeda"
-                  />
-                  <button
-                    type="button"
-                    className="hover:bg-green-500
-                      hover:text-white rounded-full px-4 py-2
-                    active:scale-110"
-                    onClick={ () => this.editExpenseFromStore(expense) }
+                  <div
+                    className="flex items-center justify-center m-2"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2
-                        0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <Input
+                      name="description"
+                      value={ description }
+                      onChange={ (e) => handleChange(e) }
+                      placeholder="Descrição"
+                      type="text"
+                    />
+                    <Select
+                      id="method"
+                      value={ method }
+                      name="method"
+                      onChange={ handleChange }
+                      options={ paymentMethods }
+                      ariaLabel="Método de pagamento"
+                    />
+                    <Input
+                      name="value"
+                      value={ value }
+                      type="number"
+                      onChange={ (e) => handleChange(e) }
+                      placeholder="Valor"
+                    />
+                    <Select
+                      id="tag"
+                      value={ tag }
+                      name="tag"
+                      onChange={ handleChange }
+                      options={ tags }
+                      ariaLabel="Tag"
+                    />
+                    <Select
+                      id="currency"
+                      value={ currency }
+                      name="currency"
+                      onChange={ handleChange }
+                      options={ currencyFromGlobalStoreTreatment() }
+                      ariaLabel="Moeda"
+                    />
+                    <button
+                      type="button"
+                      className="hover:bg-green-500
+                          hover:text-white rounded-full px-4 py-2
+                        active:scale-110"
+                      onClick={ () => this.editExpenseFromStore(expense, index) }
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2
+                            0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               ) : (
                 <>
                   <td>{ expense.description }</td>
