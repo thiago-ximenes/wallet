@@ -21,10 +21,35 @@ class Header extends Component {
     const { email } = this.props;
     const { totalExpenses } = this;
     return (
-      <div>
-        <p data-testid="email-field">{ email }</p>
-        <p data-testid="total-field">{ Number(totalExpenses()).toFixed(2) }</p>
-        <div data-testid="header-currency-field">BRL</div>
+      <div
+        className="text-gray-700"
+      >
+        <h2
+          className="text-center font-semibold text-2xl italic"
+          data-testid="email-field"
+        >
+          { email }
+        </h2>
+        <div
+          className="flex justify-end p-3"
+        >
+          <span
+            data-testid="total-field"
+            className="bg-blue-500 shadow-sm text-white
+            font-bold text-2xl p-2 rounded-lg italic
+            "
+          >
+            { Number(totalExpenses()).toFixed(2) }
+
+          </span>
+          <span
+            data-testid="header-currency-field"
+            className="italic text-sm text-gray-500 pl-1"
+          >
+            BRL
+
+          </span>
+        </div>
       </div>
     );
   }

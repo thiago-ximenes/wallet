@@ -82,8 +82,8 @@ class Login extends React.Component {
           p-8 h-auto max-h-full shadow-lg"
         >
           <header>
-            <h1 className="text-center text-2xl font-bold mb-5">
-              Login
+            <h1 className="text-center text-5xl font-bold mb-7 text-green-700 italic">
+              LOGIN
             </h1>
           </header>
           <div>
