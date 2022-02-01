@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCurrency, SetExpenses } from '../actions/index';
+import Input from './Input';
 
 class Form extends Component {
   constructor() {
@@ -62,18 +63,18 @@ class Form extends Component {
     const { handleChange, handleSubmit } = this;
     return (
       <div>
-        <input
+        <Input
           name="value"
           value={ value }
           type="text"
-          data-testid="value-input"
           onChange={ (e) => handleChange(e) }
+          placeholder="Value"
         />
-        <input
+        <Input
           name="description"
           value={ description }
-          data-testid="description-input"
           onChange={ (e) => handleChange(e) }
+          placeholder="Description"
         />
         <label htmlFor="currency" aria-label="Moeda">
           <select
