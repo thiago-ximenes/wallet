@@ -1,6 +1,6 @@
 export const SET_CURRENCIES = 'SET_CURRENCIES';
 export const SET_EXPENSES = 'SET_EXPENSES';
-export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -19,7 +19,7 @@ export default function wallet(state = INITIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, action.payload],
     };
-  case DELETE_EXPENSE:
+  case UPDATE_EXPENSE:
     return {
       ...state,
       expenses: action.payload,

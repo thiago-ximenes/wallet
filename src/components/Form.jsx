@@ -68,29 +68,30 @@ class Form extends Component {
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { handleChange, handleSubmit, currencyFromGlobalStoreTreatment } = this;
-    const paymentMethods = ['Choose a payment method',
+    const paymentMethods = ['Método de pagamento',
       'Cartão de crédito', 'Cartão de débito', 'Dinheiro'];
-    const tags = ['Choose a tag',
+    const tags = ['Escolha a tag',
       'Alimentação', 'Transporte', 'Lazer', 'Saúde', 'Educação', 'Outros'];
     return (
       <form
-        className="flex items-center justify-center"
+        className="flex items-center justify-center
+        bg-white shadow-md rounded-lg mx-auto mt-4 overflow-hidden"
       >
         <div
-          className="flex flex-col items-center justify-center"
+          className="flex flex-col items-center justify-center m-2"
         >
           <Input
             name="value"
             value={ value }
             type="text"
             onChange={ (e) => handleChange(e) }
-            placeholder="Value"
+            placeholder="Valor"
           />
           <Input
             name="description"
             value={ description }
             onChange={ (e) => handleChange(e) }
-            placeholder="Description"
+            placeholder="Descrição"
           />
         </div>
         <div
@@ -130,8 +131,8 @@ class Form extends Component {
               handleSubmit(e);
             } }
             className="rounded-md px-8 py-2 font-bold mr-2 mb-2
-            bg-blue-500 hover:bg-blue-600 active:scale-90
-            duration-150 ease-in-out text-white hover:scale-110"
+            bg-blue-500 hover:bg-blue-600 active:scale-100
+            duration-150 ease-in-out text-white"
           >
             Adicionar despesa
           </button>

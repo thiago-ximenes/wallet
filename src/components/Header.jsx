@@ -29,7 +29,6 @@ class Header extends Component {
           data-testid="email-field"
         >
           { email }
-          teste
         </h2>
         <div
           className="flex justify-end p-3"
