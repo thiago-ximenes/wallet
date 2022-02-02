@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateExpense } from '../actions';
 import { paymentMethods, tags } from '../data/optionsToSelect';
+import edit from '../helpers/editIcon';
 import Input from './Input';
 import Select from './Select';
-import edit from '../helpers/editIcon';
 
 class Table extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       editId: null,
       value: '',
@@ -17,6 +17,7 @@ class Table extends Component {
       currency: 'USD',
       method: '',
       tag: '',
+      setInitialState: true,
     };
   }
 
@@ -63,12 +64,86 @@ class Table extends Component {
     return result;
   }
 
+  setEdit = (expense, index) => {
+    const { value, description, currency, method, tag, setInitialState } = this.state;
+    const { handleChange, currencyFromGlobalStoreTreatment } = this;
+    console.log(expense.description);
+    if (setInitialState) {
+      this.setState({
+        description: expense.description,
+        value: expense.value,
+        currency: expense.currency,
+        method: expense.method,
+        tag: expense.tag,
+        setInitialState: false,
+      });
+    }
+    return (
+      <td
+        colSpan={ 9 }
+      >
+        <div
+          className="flex items-center justify-center m-2"
+        >
+          <Input
+            name="description"
+            value={ description }
+            onChange={ (e) => handleChange(e) }
+            placeholder="Descrição"
+            type="text"
+          />
+          <Select
+            id="method"
+            value={ method }
+            name="method"
+            onChange={ handleChange }
+            options={ paymentMethods }
+            ariaLabel="Método de pagamento"
+          />
+          <Input
+            name="value"
+            value={ value }
+            type="number"
+            onChange={ (e) => handleChange(e) }
+            placeholder="Valor"
+          />
+          <Select
+            id="tag"
+            value={ tag }
+            name="tag"
+            onChange={ handleChange }
+            options={ tags }
+            ariaLabel="Tag"
+          />
+          <Select
+            id="currency"
+            value={ currency }
+            name="currency"
+            onChange={ handleChange }
+            options={ currencyFromGlobalStoreTreatment() }
+            ariaLabel="Moeda"
+          />
+          <button
+            type="button"
+            className="hover:bg-green-500
+                hover:text-white rounded-full px-4 py-2
+              active:scale-110"
+            onClick={ () => {
+              this.setState({ setInitialState: true });
+              this.editExpenseFromStore(expense, index);
+            } }
+          >
+            { edit }
+          </button>
+        </div>
+      </td>
+    );
+  }
+
   render() {
-    const { editId, value, description, currency, method, tag } = this.state;
+    const { editId } = this.state;
     const { expenses } = this.props;
-    console.log(expenses);
-    const { deleteExpenseFromStore, handleChange,
-      currencyFromGlobalStoreTreatment } = this;
+    const { deleteExpenseFromStore, setEdit } = this;
     const tableTitle = ['Descrição', 'Tag', 'Método de pagamento',
       'Valor', 'Moeda', 'Câmbio utilizado', 'Valor convertido',
       'Moeda de conversão', 'Editar/Excluir'];
@@ -101,63 +176,7 @@ class Table extends Component {
               text-center"
               key={ expense.id }
             >
-              {expense.id === editId ? (
-                <td
-                  colSpan={ 9 }
-                >
-                  <div
-                    className="flex items-center justify-center m-2"
-                  >
-                    <Input
-                      name="description"
-                      value={ description }
-                      onChange={ (e) => handleChange(e) }
-                      placeholder="Descrição"
-                      type="text"
-                    />
-                    <Select
-                      id="method"
-                      value={ method }
-                      name="method"
-                      onChange={ handleChange }
-                      options={ paymentMethods }
-                      ariaLabel="Método de pagamento"
-                    />
-                    <Input
-                      name="value"
-                      value={ value }
-                      type="number"
-                      onChange={ (e) => handleChange(e) }
-                      placeholder="Valor"
-                    />
-                    <Select
-                      id="tag"
-                      value={ tag }
-                      name="tag"
-                      onChange={ handleChange }
-                      options={ tags }
-                      ariaLabel="Tag"
-                    />
-                    <Select
-                      id="currency"
-                      value={ currency }
-                      name="currency"
-                      onChange={ handleChange }
-                      options={ currencyFromGlobalStoreTreatment() }
-                      ariaLabel="Moeda"
-                    />
-                    <button
-                      type="button"
-                      className="hover:bg-green-500
-                          hover:text-white rounded-full px-4 py-2
-                        active:scale-110"
-                      onClick={ () => this.editExpenseFromStore(expense, index) }
-                    >
-                      { edit }
-                    </button>
-                  </div>
-                </td>
-              ) : (
+              {expense.id === editId ? setEdit(expense, index) : (
                 <>
                   <td>{ expense.description }</td>
                   <td>{ expense.tag }</td>
