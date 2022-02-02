@@ -5,6 +5,7 @@ import { updateExpense } from '../actions';
 import { paymentMethods, tags } from '../data/optionsToSelect';
 import Input from './Input';
 import Select from './Select';
+import edit from '../helpers/editIcon';
 
 class Table extends Component {
   constructor() {
@@ -152,15 +153,7 @@ class Table extends Component {
                         active:scale-110"
                       onClick={ () => this.editExpenseFromStore(expense, index) }
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2
-                            0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
-                        />
-                      </svg>
+                      { edit }
                     </button>
                   </div>
                 </td>
