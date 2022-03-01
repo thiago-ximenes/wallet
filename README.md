@@ -8,6 +8,10 @@ A Wallet to manage finances with many currencies like USD, EUR, CAD and others.
 - TailwindCSS
 - Git
 
+## In Production
+
+[Link to aplicattion running](https://ximenes-wallet.herokuapp.com/)
+
 ## Intalling
 - npm
 ```
